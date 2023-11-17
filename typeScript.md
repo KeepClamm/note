@@ -75,6 +75,7 @@ let tom: Person = {
 
 ```typescript
 let fibonacci: number[] = [1, 1, 2, 3, 5];
+let arr:(number|string)[];
 ```
 
 数组泛型
@@ -102,7 +103,20 @@ function sum(x: number, y: number): number {
 }
 ```
 
-输入多余的或者少于要求的参数都是不被允许的
+tip: 
+
+如果一个变量要套用另一个函数类型，有一个小技巧，就是使用typeof运算符。
+
+```typescript
+function add(x:number, y:number) {
+    return x + y;
+}
+const myAdd:typeof add = function(x, y) {
+    return x + y
+}
+```
+
+
 
 **可选参数**
 
@@ -250,7 +264,6 @@ createArray<string>(3, 'x'); // ['x', 'x', 'x']
 
 ```javascript
 let obj:Object;
- 
 obj = true;
 obj = 'hi';
 obj = 1;
@@ -258,4 +271,35 @@ obj = { foo: 123 };
 obj = [1, 2];
 obj = (a:number) => a + 1;
 ```
+
+除了undefined和null这两个值不能转为对象，其他任何值都可以赋值给Object类型
+
+小写的object类型代表js里面的狭义对象，即可以用字面量表示的对象，只包含对象、数组和函数，不包括原始类型的值。
+
+`type命令`
+
+type命令用来定义一个类型的别名
+
+```typescript
+type Age = number;
+let age:Age = 55;
+```
+
+`块级类型声明`
+
+ts支持块级类型声明，即类型可以声明在代码块里面，并且只在当前代码块有效
+
+```typescript
+if (true) {
+    type T = number;
+    let v:T = 5
+} else {
+	type T = string;
+    let vT = 'hello'
+}
+```
+
+
+
+
 
