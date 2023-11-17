@@ -244,5 +244,18 @@ function createArray<T>(length: number, value: T): Array<T> {
 createArray<string>(3, 'x'); // ['x', 'x', 'x']
 ```
 
+`Object和object`
 
+大写的Object类型代表js语言里面的广义对象。所有可以转成对象的值，都是Object类型，这囊括了几乎所有的值
+
+```javascript
+let obj:Object;
+ 
+obj = true;
+obj = 'hi';
+obj = 1;
+obj = { foo: 123 };
+obj = [1, 2];
+obj = (a:number) => a + 1;
+```
 
