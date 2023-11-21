@@ -149,3 +149,40 @@ move(); // [0, 0]
 }
 ```
 
+## 可选链运算符(?.)
+
+可选链运算符允许读取位于连接对象链深处的属性的值，而不必明确验证链中的每个引用是否有效。
+
+`语法`
+
+```javascript
+obj.val?.prop
+obj.val?.[expr]
+obj.func?.(args)
+```
+
+`描述`
+
+通过连接的对象的引用或函数可能是undefined或null时，可选链运算符提供了一种方法来简化被连接对象的值的访问。
+
+比如，一个存在嵌套结构的对象，不使用可选链的话，查找一个深度嵌套的子属性时，需要验证之间的引用。
+
+```javascript
+let newObj = obj.first && obj.first.second
+```
+
+为了避免报错，在访问obj.first.second之前，要保证obj.first的值既不是null，也不是undefined。如果只是直接访问obj.first.second，而不对obj.first进行校验，则有可能抛出错误。
+
+```javascript
+let newObj = obj.first?.second
+```
+
+## this.$nextTick
+
+> 在下次DOM更新循环结束之后执行延迟回调。在修改数据之后立即使用这个方法，回调函数获取更新后的dom再渲染出来；nextTick类似于一个非常高级的定时器，自动追踪DOM刚更新，更新好了就触发。
+
+什么时候需要nextTick？
+
+data改变，更新DOM是异步的；DOM更新是异步的，Vue响应式的特征，修改数据后，页面自动更新，而更新DOM这个操作是异步的；这个时候使用nextTick()，回调函数会在下一次DOM更新完毕后执行。
+
+`真实案例：当新增和修改共用同一个el-dialog，按以下步骤会有bug：点击修改-->el-form回显数据-->关闭el-dialog-->点击新增-->el-dialog还有原来的数据，这样是不合理的。原因在于关闭dialog时form的 resetFields 没生效；原因是还未获取到DOM；解决方法是在修改赋值时，使用$nextTick()回调推迟到下一个 DOM 更新周期之后执行`
